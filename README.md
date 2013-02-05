@@ -13,7 +13,7 @@ gives all the combinations from 2 syllables to 3 sillables
 
 Note : **'Ga Bu Zo Meu'** from [Les Shadocks](http://fr.wikipedia.org/wiki/Les_Shadoks)
 
-Todo : Allow our script to create the words like BuBu (the sea) or ZoBuBuGa (to pump)
+Todo : Allow our script to create words like BuBu (the sea) or ZoBuBuGa (to pump)
 
 Some code adapted from permutation and sets functions found in [php.net array shuffle documentation comments](http://www.php.net/manual/en/function.shuffle.php#90615)
 
