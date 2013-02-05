@@ -35,7 +35,8 @@ $max = $max > 0 ? $max : count($sy);
  * some code from http://www.php.net/manual/en/function.shuffle.php#90615
  */
 
-p('Syllabes = ' . implode(', ', $sy));
+p('Syllables = ' . implode(', ', $sy));
+p('min = ' . $min . ' - max = ' . $max);
 p();
 
 $permutations = power_perms($sy, $min, $max);
