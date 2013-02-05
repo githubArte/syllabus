@@ -1,24 +1,41 @@
 <?php
-header("Content-Type:text/plain; charset=utf-8");
-
-/**
- * really quick and dirty code to generate words based on sillables
- * 
- * http://syllabus.dev/?syllables=do,re,mi,fa,sol 
- * gives all the combinations from 1 syllable to five sillables ( count(array) )
- * 
- * http://syllabus.dev/?syllables=do,re,mi,fa,sol&min=2
- * gives all the combinations from 2 syllables to five sillables ( count(array) )
- * 
- * http://syllabus.dev/?syllables=do,re,mi,fa,sol&min=2&max=3
- * gives all the combinations from 2 syllables to 3 sillables
- */
-
+header("Content-Type:text/html; charset=utf-8");
+?>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Syllabus - syllables mixer</title>
+    <style>
+        body{ margin: 20px 20%; font-family: sans-serif; }
+    </style>
+</head>
+<body>
+    <h1>Syllabus - A syllables mixer</h1>
+<p>
+Really quick and dirty code to generate words based on sillables<br>
+<br><a href="http://clip.pygmeeweb.com/syllabus/?syllables=do,re,mi,fa,sol">http://clip.pygmeeweb.com/syllabus/?syllables=do,re,mi,fa,sol</a><br>
+gives all the combinations from 1 syllable to five sillables = count(array(do,re,mi,fa,sol))<br>
+<br><a href="http://clip.pygmeeweb.com/syllabus/?syllables=do,re,mi,fa,sol&min=2">http://clip.pygmeeweb.com/syllabus/?syllables=do,re,mi,fa,sol&min=2</a><br>
+gives all the combinations from 2 syllables to five sillables = count(array(do,re,mi,fa,sol))<br>
+<br><a href="http://clip.pygmeeweb.com/syllabus/?syllables=do,re,mi,fa,sol&min=2&max=3">http://clip.pygmeeweb.com/syllabus/?syllables=do,re,mi,fa,sol&min=2&max=3</a><br>
+gives all the combinations from 2 syllables to 3 sillables<br>
+<br>
+Note : <strong>'Ga Bu Zo Meu'</strong> from <a href="http://fr.wikipedia.org/wiki/Les_Shadoks">Les Shadoks</a><br>
+Todo : Allow our script to create the words like BuBu (the sea) or ZoBuBuGa (to pump)<br>
+Some code adapted from <a href="http://www.php.net/manual/en/function.shuffle.php#90615">php.net comments</a><br>
+Code at : <a href="https://github.com/djacquel/syllabus">Github</a><br>
+Tweeter : <a href="https://twitter.com/djacquel">@djacquel</a><br>
+Licence : free<br>
+</p>
+<hr>
+<h2>Input</h2>
+<?php
 // sillables used to composed words
 if(isset($_GET['syllables'])){
     $sy = explode(',', $_GET['syllables']);
 }else{
-    $sy = array('li', 'ne', 'noo', 'mi', 'paï', 'ka');
+    $sy = array('ga', 'bu', 'zo', 'meu');
 }
 
 // min number of sillables used to compose word
@@ -29,7 +46,6 @@ $min = $min > 0 ? $min : 1;
 $max = (int)$_GET['max'] ;
 $max = $max > 0 ? $max : count($sy);
 
-
 /**
  * mix syllables
  * some code from http://www.php.net/manual/en/function.shuffle.php#90615
@@ -37,7 +53,6 @@ $max = $max > 0 ? $max : count($sy);
 
 p('Syllables = ' . implode(', ', $sy));
 p('min = ' . $min . ' - max = ' . $max);
-p();
 
 $permutations = power_perms($sy, $min, $max);
 
@@ -48,7 +63,11 @@ foreach ($permutations as $permutation) {
 }
 
 usort($results, "cmp");
-
+?>
+<h2>Results</h2>
+<?php
+p('Result count = ' . count($results));
+p();
 p($results, true);
 
 function p($text = '', $withNumber = false) {
@@ -64,7 +83,7 @@ function p($text = '', $withNumber = false) {
             }
         }
     } else {
-        $text .= PHP_EOL;
+        $text .= PHP_EOL . '<br>';
         if($withNumber == true){
             echo ++$count . ' - ' . $text;
         }else{
@@ -162,3 +181,19 @@ function cmp($a, $b) {
 }
 
 
+?>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-38261653-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>
