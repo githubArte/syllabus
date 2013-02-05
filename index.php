@@ -1,29 +1,43 @@
 <?php
 header("Content-Type:text/plain; charset=utf-8");
 
-if(isset($_get['syllabes'])){
-    $sy = explode(',', $_get['syllabes']);
+/**
+ * really quick and dirty code to generate words based on sillables
+ * 
+ * http://syllabus.dev/?syllables=do,re,mi,fa,sol 
+ * gives all the combinations from 1 syllable to five silables ( count(array) )
+ * 
+ * http://syllabus.dev/?syllables=do,re,mi,fa,sol&min=2
+ * gives all the combinations from 2 syllables to five silables ( count(array) )
+ * 
+ * http://syllabus.dev/?syllables=do,re,mi,fa,sol&min=2&max=3
+ * gives all the combinations from 2 syllables to 3 silables
+ */
+
+// sillables used to composed words
+if(isset($_GET['syllables'])){
+    $sy = explode(',', $_GET['syllables']);
 }else{
     $sy = array('li', 'ne', 'noo', 'mi', 'paï', 'ka');
 }
 
+// min number of sillables used to compose word
+$min = (int)$_GET['min'] ;
+$min = $min > 0 ? $min : 1;
 
-$syllabes = isset($_get['syllabes']) ? explode(','$_get['syllabes']) : array('li', 'ne', 'noo', 'mi', 'paï', 'ka') ;
-
+// max number of sillables used to compose word
+$max = (int)$_GET['max'] ;
+$max = $max > 0 ? $max : count($sy);
 
 /**
  * mix syllables
  * some code from http://www.php.net/manual/en/function.shuffle.php#90615
  */
-$syllables = array('li', 'ne', 'noo', 'mi', 'paï', 'ka');
 
-$minLength = 3;
-$maxLength = 4;
-
-p('Syllabes = ' . implode(', ', $syllables));
+p('Syllabes = ' . implode(', ', $sy));
 p();
 
-$permutations = power_perms($syllables, $minLength, $maxLength);
+$permutations = power_perms($sy, $min, $max);
 
 $results = array();
 
@@ -34,9 +48,6 @@ foreach ($permutations as $permutation) {
 usort($results, "cmp");
 
 p($results, true);
-
-p();
-p();
 
 function p($text = '', $withNumber = false) {
     
