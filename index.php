@@ -5,13 +5,13 @@ header("Content-Type:text/plain; charset=utf-8");
  * really quick and dirty code to generate words based on sillables
  * 
  * http://syllabus.dev/?syllables=do,re,mi,fa,sol 
- * gives all the combinations from 1 syllable to five silables ( count(array) )
+ * gives all the combinations from 1 syllable to five sillables ( count(array) )
  * 
  * http://syllabus.dev/?syllables=do,re,mi,fa,sol&min=2
- * gives all the combinations from 2 syllables to five silables ( count(array) )
+ * gives all the combinations from 2 syllables to five sillables ( count(array) )
  * 
  * http://syllabus.dev/?syllables=do,re,mi,fa,sol&min=2&max=3
- * gives all the combinations from 2 syllables to 3 silables
+ * gives all the combinations from 2 syllables to 3 sillables
  */
 
 // sillables used to composed words
@@ -28,6 +28,7 @@ $min = $min > 0 ? $min : 1;
 // max number of sillables used to compose word
 $max = (int)$_GET['max'] ;
 $max = $max > 0 ? $max : count($sy);
+
 
 /**
  * mix syllables
